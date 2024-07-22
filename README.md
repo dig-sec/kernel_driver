@@ -26,7 +26,7 @@ To build the project, run the following command:
 cargo build --release
 ```
 
-## Step 5: Sign the Driver
+## Sign the Driver
 
 To install the driver on modern Windows systems, it must be signed. Follow these steps:
 
@@ -37,7 +37,7 @@ To install the driver on modern Windows systems, it must be signed. Follow these
 signtool sign /v /s My /n "Your Certificate Name" /t http://timestamp.verisign.com/scripts/timestamp.dll path\to\your\driver.sys
 ```
 
-## Step 6: Install the Driver
+## Install the Driver
 
 To install the driver, follow these steps:
 
