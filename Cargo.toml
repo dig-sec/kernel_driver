@@ -1,0 +1,17 @@
+[package]
+name = "kernel_driver"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+ntapi = "0.3"
+wdk-sys = { git = "https://github.com/microsoft/windows-drivers-rs", branch = "main" }
+
+[features]
+alloc_error_handler = []
+
+[profile.release]
+lto = true
+
+[profile.dev]
+lto = true
