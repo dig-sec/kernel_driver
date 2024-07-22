@@ -3,15 +3,26 @@ name = "kernel_driver"
 version = "0.1.0"
 edition = "2021"
 
+[lib]
+crate-type = ["cdylib"]
+
 [dependencies]
-ntapi = "0.3"
-wdk-sys = { git = "https://github.com/microsoft/windows-drivers-rs", branch = "main" }
+ntapi = { version = "0.4.0", default-features = false }
+wdk-sys = { git = "https://github.com/microsoft/windows-drivers-rs", branch = "main", default-features = false }
+winapi = { version = "0.3.9", features = ["ntstatus"] }
 
 [features]
+default = ["alloc"]
+alloc = []
 alloc_error_handler = []
 
-[profile.release]
+[profile.dev]
+panic = "abort"
 lto = true
 
-[profile.dev]
+[profile.release]
+panic = "abort"
 lto = true
+
+[build-dependencies]
+cc = "1.0"
