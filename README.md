@@ -26,6 +26,43 @@ To build the project, run the following command:
 cargo build --release
 ```
 
+## Generate a signing certificate
+
+To create a signing certificate for your application, you can use the following steps:
+
+1. Open a command prompt and navigate to the directory where you want to generate the certificate.
+
+2. Run the following command to generate a self-signed certificate:
+
+```sh
+makecert -r -pe -n "CN=Your Certificate Name" -ss My -sr LocalMachine -a sha256 -sky signature -cy end -sv MyCertificate.pvk MyCertificate.cer
+```
+
+    This command will generate a private key file (`MyCertificate.pvk`) and a certificate file (`MyCertificate.cer`).
+
+3. Import the certificate into the certificate store by running the following command:
+
+```sh
+certutil -addstore My MyCertificate.cer
+```
+
+    This will import the certificate into the "Personal" certificate store.
+
+4. Export the certificate with the private key by running the following command:
+
+```sh
+pvk2pfx -pvk MyCertificate.pvk -spc MyCertificate.cer -pfx MyCertificate.pfx
+```
+
+    This will generate a PFX file (`MyCertificate.pfx`) that contains both the private key and the certificate.
+
+5. You can now use the generated certificate (`MyCertificate.pfx`) to sign your driver using the `signtool` utility as mentioned in the previous section.
+
+Remember to keep the private key file (`MyCertificate.pvk`) and the PFX file (`MyCertificate.pfx`) secure.
+
+For more information on certificate generation and management, refer to the [Microsoft documentation](https://docs.microsoft.com/en-us/windows/win32/seccrypto/makecert-usage).
+
+
 ## Sign the Driver
 
 To install the driver on modern Windows systems, it must be signed. Follow these steps:
